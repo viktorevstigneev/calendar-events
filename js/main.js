@@ -73,27 +73,31 @@ const setDaysTimeout = (callback) => {
 	},NUMBER_OF_MILLISECONDS_DAY);
 }
 
-const setLongTimeout = (callback, delay, eventName) => {
+const setLongTimeout = (callback, delay, eventObj) => {
 	if(delay > MAX_DELAY_MILLISECONDS) {   
-  	eventName = setTimeout(() => { 
-				setLongTimeout(callback, (delay - MAX_DELAY_MILLISECONDS), eventObject); 
+  	eventObj.action = setTimeout(() => { 
+				setLongTimeout(callback, (delay - MAX_DELAY_MILLISECONDS), eventObj); 
 			}
 		, MAX_DELAY_MILLISECONDS);
 	}
  	else if(delay > MIN_DELAY_MILLISECONDS && delay <= MAX_DELAY_MILLISECONDS) {    
-		eventName = setTimeout(callback, delay);   
+		eventObj.action = setTimeout(callback, delay);   
 	} 
 }
 
-const createNewEvent = (eventName, eventTime, callback) => {
-	let eventActionName = setLongTimeout(callback, eventTime.getTime() - new Date().getTime(), eventName);
-	const eventObj = {
-		id: getUniqueId(),
-		name: eventName,
-		time: eventTime,
-		action: eventActionName	
-	} 
-	eventList.push(eventObj);
+const setNewEvent = (eventName, eventTime, callback) => {
+	if (eventTime.getTime() - new Date().getTime() > MIN_DELAY_MILLISECONDS){
+		const eventObj = {
+			id: getUniqueId(),
+			name: eventName,
+			time: eventTime,
+			function: callback
+		} 
+		setLongTimeout(callback, eventTime.getTime() - new Date().getTime(), eventObj);
+		eventList.push(eventObj);
+	} else{
+		console.log("can not to set event in past");
+	}
 }
 
 const deleteEvent = (eventId, eventName) => { 
@@ -113,12 +117,13 @@ const renameEvent = (id, eventName, newEventName) => {
 	});
 }
 
-const changeEventDate = (id, eventTime, newEventTime) => {
-	eventList.map((item) => { 
-		if(item.id === id && item.time === eventTime){
-			return item.time = newEventTime
-		}
+const changeEventDate = (eventId, eventName, newEventTime) => {
+	let callback;
+	eventList.forEach((item) => {
+		item.id === eventId ? callback = item.function : "there is no this event"; 
 	});
+	deleteEvent(eventId, eventName);
+	setNewEvent(eventName, newEventTime, callback);
 }
 
 const showEventslist = (period, startDate, finalDate) => {
@@ -176,31 +181,31 @@ const showEventslist = (period, startDate, finalDate) => {
 	}
 }
 
-const setEveryDayEvent = (eventName, callback, hours, minutes) => {
-	let	eventActionName = setInterval(callback, getMillisecondsToNextDay(hours, minutes));
+const setEveryDayEvents = (eventName, callback, hours = 0, minutes  = 0) => {
 	const eventObj = {
 		id: getUniqueId(),
 		name: eventName,
 		time: "every day",
-		action: eventActionName
 	} 
+	eventObj.action = setInterval(callback, getMillisecondsToNextDay(hours, minutes));
 	eventList.push(eventObj);
 }
 
-// createNewEvent("buying", new Date(2021, 1, 4, 13, 47), () => {console.log("buy a bread")});
-createNewEvent("test", new Date(2021, 2, 4, 14, 58), () => {console.log("test")});
+const setSelectedDaysEvent = (eventName, days, callback, hours = 0, minutes  = 0) => {
+
+}  
+// setNewEvent("buying", new Date(2021, 1, 4, 21, 45), () => {console.log("buy a bread")});
+// setNewEvent("test", new Date(2021, 2, 4, 19, 52), () => {console.log("test")});
 // console.log('eventList: ', eventList);
 // showEventslist("Day",new Date(2021, 1, 4));
 // showEventslist("Month",new Date(2021, 1, 1));
 // showEventslist("Week",new Date(2021, 1, 1));
 // setInterval(updateСurrentDate, 10);
+// changeEventDate(1,"buying", new Date(2021, 1, 4, 21, 50))
 
 // console.log('eventList: ', eventList);
 // deleteEvent(1,"buying");
 // console.log('eventList: ', eventList);
 // renameEvent(2,"test","bread");
 // console.log('eventList: ', eventList);
-// console.log("today", new Date().getTime());
-// console.log("tomorrow",new Date(2021, 1, 4).getTime());
-// console.log("difference",new Date(2021, 1, 3, 14, 48).getTime() - new Date().getTime());
-// createNewEvent("test", new Date(2021, 1, 3, 15, 35), () => {console.log("test")});
+// setNewEvent("test", new Date(2021, 1, 3, 15, 35), () => {console.log("test")});

@@ -1,0 +1,26 @@
+{
+  "name": "calendar-events",
+  "version": "1.0.0",
+  "description": "app for remindimg events",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "scripts": {
+    "lint": "eslint js",
+    "fix": "eslint js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viktorevstigneev/calendar-events.git"
+  },
+  "author": "viktorevstigneev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viktorevstigneev/calendar-events/issues"
+  },
+  "homepage": "https://github.com/viktorevstigneev/calendar-events#readme"
+}

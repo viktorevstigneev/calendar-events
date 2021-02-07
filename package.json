@@ -4,6 +4,7 @@
   "description": "app for remindimg events",
   "main": "index.js",
   "dependencies": {
+    "jest": "^26.6.3",
     "jsdoc": "^3.6.6"
   },
   "devDependencies": {
@@ -14,7 +15,8 @@
   "scripts": {
     "lint": "eslint js",
     "fix": "eslint js --fix",
-    "doc": "jsdoc js/utils.js"
+    "doc": "jsdoc js/utils.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

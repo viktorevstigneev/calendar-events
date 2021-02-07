@@ -11,7 +11,6 @@ or you can use this <code> git clone https://github.com/viktorevstigneev/calenda
 after it unpack this archive and open <file> index.html </file> in your browser
 finaly, show a browser console and you can to try  :
 
-.
 1. create-event
 2. change-event-list
 3. show-event-list

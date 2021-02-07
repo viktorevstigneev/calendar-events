@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "app for remindimg events",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "jsdoc": "^3.6.6"
+  },
   "devDependencies": {
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -11,7 +13,8 @@
   },
   "scripts": {
     "lint": "eslint js",
-    "fix": "eslint js --fix"
+    "fix": "eslint js --fix",
+    "doc": "jsdoc js/utils.js"
   },
   "repository": {
     "type": "git",

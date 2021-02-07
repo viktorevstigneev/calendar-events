@@ -6,6 +6,12 @@
     INTERVAL: 'Interval',
   };
 
+  /**
+   * @param {string} period
+   * @param {date} startDate
+   * @param {date} finalDate
+   * @returns {Array}
+   */
   const showEventslist = (period, startDate, finalDate) => {
     let result = [];
 
@@ -49,6 +55,10 @@
                     && eventItem.time.getFullYear() === date.getFullYear()
         )));
         console.log(result);
+        break;
+
+      default:
+        console.log('nothing to search');
         break;
     }
   };

@@ -13,8 +13,8 @@
     "eslint-plugin-import": "^2.22.1"
   },
   "scripts": {
-    "lint": "eslint js",
-    "fix": "eslint js --fix",
+    "lint": "eslint src",
+    "fix": "eslint src --fix",
     "doc": "jsdoc js/utils.js",
     "test": "jest"
   },

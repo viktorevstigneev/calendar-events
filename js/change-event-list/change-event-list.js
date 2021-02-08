@@ -19,7 +19,7 @@
    */
   const renameEvent = (id, eventName, newEventName) => window.eventList.forEach((item) => {
     if (item.id === id && item.name === eventName) {
-      return item.name = newEventName;
+      item.name = newEventName;
     }
   });
 
@@ -31,7 +31,9 @@
   const changeEventDate = (eventId, eventName, newEventTime) => {
     let callback;
     window.eventList.forEach((item) => {
-      item.id === eventId ? callback = item.function : 'there is no this event';
+      if (item.id === eventId) {
+        callback = item.function;
+      }
     });
     deleteEvent(eventId, eventName);
     window.modules.setNewEvent(eventName, newEventTime, callback);

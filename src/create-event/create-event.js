@@ -1,5 +1,7 @@
 (() => {
   window.MIN_DELAY_MILLISECONDS = 0;
+  const NUMBER_OF_MILLISECONDS_IN_SECOND = 1000;
+  const NUMBER_OF_SECONDS_IN_MINUTE = 60;
 
   const WEEK_DAYS = [
     'Sunday',
@@ -37,35 +39,11 @@
   /**
    * @param {string} eventName
    * @param {function} callback
-   * @param {number} hours
-   * @param {number} minutes
-   */
-  const setEveryDayRecurringEvent = (eventName, callback, hours, minutes) => {
-    const eventObj = {
-      id: window.utils.getUniqueId(),
-      name: eventName,
-      time: `${hours} : ${minutes} every day `,
-      function: callback,
-    };
-    if (window.utils.getMillisecondsToSelectedTodayTime(hours, minutes) > 0) {
-      eventObj.action = setInterval(callback,
-        window.utils.getMillisecondsToSelectedTodayTime(hours, minutes));
-      window.eventList.push(eventObj);
-    } else {
-      eventObj.action = setInterval(callback,
-        window.utils.getMillisecondsToNextDay(hours, minutes));
-      window.eventList.push(eventObj);
-    }
-  };
-
-  /**
-   * @param {string} eventName
-   * @param {function} callback
    * @param {Array} days
    * @param {number} hours
    * @param {number} minutes
    */
-  const setSelectedDayRecurringEvent = (eventName, callback, days, hours, minutes) => {
+  const setSelectedDaysRecurringEvent = (eventName, callback, days, hours, minutes) => {
     const eventObj = {
       id: window.utils.getUniqueId(),
       name: eventName,
@@ -90,8 +68,9 @@
    * @param {number} minutes
    * @param {number} hours
    */
+  // add {  }
   const setBeforehandingsEvent = (eventId, eventName, callback, minutes = 1, hours = 1) => {
-    const delay = hours * minutes * 60 * 1000;
+    const delay = hours * minutes * NUMBER_OF_SECONDS_IN_MINUTE * NUMBER_OF_MILLISECONDS_IN_SECOND;
     window.eventList.forEach((item) => {
       if (item.id === eventId && item.name === eventName) {
         item.beforehandingEvent = setTimeout(callback, item.time.getTime() - new Date().getTime() - delay);
@@ -113,8 +92,7 @@
 
   window.modules = {
     setNewEvent,
-    setEveryDayRecurringEvent,
-    setSelectedDayRecurringEvent,
+    setSelectedDaysRecurringEvent,
     setBeforehandingsEvent,
     setBeforehandingsForAllEvents,
   };

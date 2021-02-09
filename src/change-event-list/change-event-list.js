@@ -6,7 +6,7 @@
    */
   const deleteEvent = (eventId, eventName) => {
     window.eventList.forEach((item) => {
-      item.id === eventId && clearTimeout(item.action) || clearInterval(item.action);
+      item.id === eventId && clearTimeout(item.action) || clearTimeout(item.beforehandingEvent) || clearInterval(item.action);
     });
     window.eventList = window.eventList.filter((item) => (item.name !== eventName && item.id !== eventId));
   };
@@ -17,11 +17,13 @@
    * @param {string} newEventName
    * @returns {Array}
    */
-  const renameEvent = (id, eventName, newEventName) => window.eventList.forEach((item) => {
-    if (item.id === id && item.name === eventName) {
-      item.name = newEventName;
-    }
-  });
+  const renameEvent = (id, eventName, newEventName) => {
+    window.eventList.forEach((item) => {
+      if (item.id === id && item.name === eventName) {
+        item.name = newEventName;
+      }
+    });
+  };
 
   /**
    * @param {number} eventId

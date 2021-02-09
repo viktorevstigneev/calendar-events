@@ -1,6 +1,7 @@
 (() => {
   const NUMBER_OF_MILLISECONDS_DAY = 86400000;
   const MAX_DELAY_MILLISECONDS = 2147483647;
+  const AMOUNT_DAYS_A_WEEK = 7;
 
   let currentDate = new Date();
 
@@ -24,7 +25,7 @@
     const first = date.getDate() - date.getDay() + 1;
     date.setDate(first);
 
-    for (let i = 0; i < 7; i += 1) {
+    for (let i = 0; i < AMOUNT_DAYS_A_WEEK; i += 1) {
       weekList.push(new Date(+date));
       date.setDate(date.getDate() + 1);
     }

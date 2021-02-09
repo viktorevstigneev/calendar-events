@@ -7,33 +7,25 @@
   };
 
   /**
+   * @param {Date} firstDate
+   * @param {Date} secondDate
+   * @returns {boolean}
+   */
+  const isTwoDatesTheSame = (firstDate, secondDate) => firstDate.getDate() === secondDate.getDate()
+    && firstDate.getMonth() === secondDate.getMonth()
+    && firstDate.getFullYear() === secondDate.getFullYear();
+
+  /**
    * @param {Array} rangeList
    * @returns {Array}
    */
   const getEventFromRange = (rangeList) => {
-    const result = window.eventList.filter((eventItem) => rangeList.some((date) => (eventItem.time.getDate() === date.getDate()
-                && eventItem.time.getMonth() === date.getMonth()
-                && eventItem.time.getFullYear() === date.getFullYear()
-    )));
+    const result = window.eventList.filter((eventItem) => rangeList.some((date) => isTwoDatesTheSame(eventItem.time, date)));
     console.log(result);
+    return result;
   };
 
-  /**
-   * @param {Date} date
-   * @returns {Array}
-   */
-  const getEvent = (date) => {
-    const result = [];
-    window.eventList.forEach((item) => {
-      if (date.getDay() === item.time.getDay()
-        && date.getMonth() === item.time.getMonth()
-        && date.getFullYear() === item.time.getFullYear()
-      ) {
-        result.push(item);
-      }
-    });
-    console.log(result);
-  };
+  // const intersectionBetweenEventsList = (rangeList) => window.eventList.filter((eventItem) => rangeList.includes(eventItem));
 
   /**
    * @param {string} period
@@ -44,11 +36,12 @@
   const showEventslist = (period, startDate, finalDate) => {
     switch (period) {
       case Period.DAY:
-        getEvent(startDate);
+
         break;
 
       case Period.WEEK:
         getEventFromRange(window.utils.getCurrentWeekOfChoosingDay(startDate));
+        // intersectionBetweenEventsList(window.utils.getCurrentWeekOfChoosingDay(startDate));
         break;
 
       case Period.MONTH:

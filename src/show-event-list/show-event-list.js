@@ -7,54 +7,56 @@
   };
 
   /**
+   * @param {Array} rangeList
+   * @returns {Array}
+   */
+  const getEventFromRange = (rangeList) => {
+    const result = window.eventList.filter((eventItem) => rangeList.some((date) => (eventItem.time.getDate() === date.getDate()
+                && eventItem.time.getMonth() === date.getMonth()
+                && eventItem.time.getFullYear() === date.getFullYear()
+    )));
+    console.log(result);
+  };
+
+  /**
+   * @param {Date} date
+   * @returns {Array}
+   */
+  const getEvent = (date) => {
+    const result = [];
+    window.eventList.forEach((item) => {
+      if (date.getDay() === item.time.getDay()
+        && date.getMonth() === item.time.getMonth()
+        && date.getFullYear() === item.time.getFullYear()
+      ) {
+        result.push(item);
+      }
+    });
+    console.log(result);
+  };
+
+  /**
    * @param {string} period
    * @param {date} startDate
    * @param {date} finalDate
    * @returns {Array}
    */
   const showEventslist = (period, startDate, finalDate) => {
-    let result = [];
-
     switch (period) {
       case Period.DAY:
-        window.eventList.forEach((item) => {
-          if (startDate.getDay() === item.time.getDay()
-            && startDate.getMonth() === item.time.getMonth()
-            && startDate.getFullYear() === item.time.getFullYear()
-          ) {
-            result.push(item);
-          }
-        });
-        console.log('result: ', result);
+        getEvent(startDate);
         break;
 
       case Period.WEEK:
-        const currentWeek = window.utils.getCurrentWeekOfChoosingDay(startDate);
-        result = window.eventList.filter((eventItem) => currentWeek.some((date) => (eventItem.time.getDate() === date.getDate()
-                    && eventItem.time.getMonth() === date.getMonth()
-                    && eventItem.time.getFullYear() === date.getFullYear()
-        )));
-        console.log(result);
+        getEventFromRange(window.utils.getCurrentWeekOfChoosingDay(startDate));
         break;
 
       case Period.MONTH:
-        window.eventList.forEach((item) => {
-          if (startDate.getMonth() === item.time.getMonth()
-            && startDate.getFullYear() === item.time.getFullYear()
-          ) {
-            result.push(item);
-          }
-        });
-        console.log(result);
+        getEventFromRange(window.utils.getCurrentMonthOfChoosingDay(startDate.getFullYear(), startDate.getMonth()));
         break;
 
       case Period.INTERVAL:
-        const intervalDays = window.utils.getDifferenceBetweenDates(startDate, finalDate);
-        result = window.eventList.filter((eventItem) => intervalDays.some((date) => (eventItem.time.getDate() === date.getDate()
-                    && eventItem.time.getMonth() === date.getMonth()
-                    && eventItem.time.getFullYear() === date.getFullYear()
-        )));
-        console.log(result);
+        getEventFromRange(window.utils.getDifferenceBetweenDates(startDate, finalDate));
         break;
 
       default:

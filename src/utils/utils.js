@@ -32,6 +32,20 @@
   };
 
   /**
+   * @param {date} date
+   * @returns {array}
+   */
+  const getCurrentMonthOfChoosingDay = (year, month) => {
+    const date = new Date(year, month, 1);
+    const days = [];
+    while (date.getMonth() === month) {
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return days;
+  };
+
+  /**
    * @param {date} strartDate
    * @param {date} finalDate
    * @returns {Array}
@@ -100,5 +114,6 @@
     getMillisecondsToNextDay,
     getMillisecondsToSelectedTodayTime,
     setLongTimeout,
+    getCurrentMonthOfChoosingDay,
   };
 })();

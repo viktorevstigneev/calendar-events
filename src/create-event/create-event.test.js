@@ -7,7 +7,7 @@ test('Test setNewEvent function ', () => {
     console.log('you need to go to the store');
   };
 
-  window.modules.setNewEvent('shop', new Date(2021, 1, 9), callbackFunction);
+  window.modules.setNewEvent('shop', new Date(2021, 1, 20), callbackFunction);
 
   expect(window.eventList).toHaveLength(1);
 });

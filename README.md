@@ -15,7 +15,7 @@ finaly, show a browser console and you can to try  :
 2. change-event-list
 3. show-event-list
 4. utils
-
+<pre>
 1) The create-event module is needed so that the user can create events for specific dates and times:
 
   -for creating event : window.modules.setNewEvent (eventName, eventTime, callback)
@@ -53,5 +53,5 @@ finaly, show a browser console and you can to try  :
 
   example : window.showEventslist("Day",new Date(2021,1,7));
 
-    
+</pre>
   

@@ -17,6 +17,15 @@
   const getUniqueId = setId();
 
   /**
+   * @param {Date} firstDate
+   * @param {Date} secondDate
+   * @returns {boolean}
+   */
+  const isTwoDatesTheSame = (firstDate, secondDate) => firstDate.getDate() === secondDate.getDate()
+    && firstDate.getMonth() === secondDate.getMonth()
+    && firstDate.getFullYear() === secondDate.getFullYear();
+
+  /**
    * @param {date} date
    * @returns {Array}
    */
@@ -116,5 +125,6 @@
     getMillisecondsToSelectedTodayTime,
     setLongTimeout,
     getCurrentMonthOfChoosingDay,
+    isTwoDatesTheSame,
   };
 })();

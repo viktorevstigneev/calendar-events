@@ -79,8 +79,6 @@
     return result;
   };
 
-  // const intersectionBetweenEventsLists = (rangeList) => window.eventList.filter((eventItem) => rangeList.includes(eventItem));
-
   /**
    * @param {string} period
    * @param {date} startDate

@@ -16,7 +16,7 @@ finaly, show a browser console and you can to try  :
 3. show-event-list
 4. utils
 <pre>
-1) The create-event module is needed so that the user can create events for specific dates and times:
+1) The create events functions is needed so that the user can create events for specific dates and times:
 
   -for creating event : window.modules.setNewEvent (eventName, eventTime, callback)
   example : window.modules.setNewEvent("shop",new Date(2021,1,7),()=>{console.log("shop event")});
@@ -28,22 +28,24 @@ finaly, show a browser console and you can to try  :
   example : window.modules.setSelectedDayRecurringEvent("shop",()=>{console.log("shop event")},["Monday","Friday"]);
 
   -for creating beforehanding event : window.modules.setBeforehandingsEvent(eventId, eventName, callback, minutes, hours);
-  example : window.modules.setBeforehandingsEvent(1, "some name", ()=>{console.log("remind shop event")}, 42, 17);
+  example : modules.setBeforehandingsEvent({
+    eventId: 1, eventName: "buying", callback: ()=>{console.log("beforehanding")}, minutes = 3, hours = 1,
+  });
 
-2) The change-event-list module is needed so that the user can edit events: rename, change the date and time of an event, delete events:
+2) The change events list functions is needed so that the user can edit events: rename, change the date and time of an events, delete events:
 
   -for deleting event : window.deleteEvent(eventId, eventName);
-  example : window.deleteEvent(3, "newing bread");
+  example : window.modules.deleteEvent(3, "newing bread");
 
-  -for renaming event: window.renameEvent(id, eventName, newEventName);
-  example: window.renameEvent(1, "bread", "new bread");
+  -for renaming event: window.modules.renameEvent(id, eventName, newEventName);
+  example: window.modules.renameEvent(1, "bread", "new bread");
 
-  -for changing event date: window.changeEventDate(eventId, eventName, newEventTime);
-  example: window.changeEventDate(2, "btghfgrgrg", new Date(2021,1,7,23,28));
+  -for changing event date: window.modules.changeEventDate(eventId, eventName, newEventTime);
+  example: window.modules.changeEventDate(2, "btghfgrgrg", new Date(2021,1,7,23,28));
 
-3)  The show-event-list module is needed so that the user can wathcing existing events:
+3)  The show event list function is needed so that the user can wathcing existing events:
 
-  -for showing event list: window.showEventslist(period, startDate, finalDate);
+  -for showing event list: window.modules.showEventslist(period, startDate, finalDate);
 
   this functing consist from 4 cases:
     - Day : this case show event for chosing day;

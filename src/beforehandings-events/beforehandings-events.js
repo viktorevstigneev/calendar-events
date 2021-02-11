@@ -14,11 +14,9 @@
     eventId, eventName, callback, minutes = 1, hours = 1,
   }) => {
     const delay = hours * minutes * NUMBER_OF_SECONDS_IN_MINUTE * NUMBER_OF_MILLISECONDS_IN_SECOND;
-    window.eventList.forEach((item) => {
-      if (item.id === eventId && item.name === eventName) {
-        item.beforehandingEvent = setTimeout(callback, item.time.getTime() - new Date().getTime() - delay);
-      }
-    });
+    const findedEvent = window.eventList.find((item) => (item.id === eventId && item.name === eventName));
+
+    findedEvent.beforehandingEvent = setTimeout(callback, findedEvent.time.getTime() - new Date().getTime() - delay);
   };
 
   /**

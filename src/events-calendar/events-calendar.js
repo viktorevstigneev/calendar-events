@@ -31,13 +31,12 @@
    * @returns {Array}
    */
   const deleteEvent = (eventId, eventName, isBeforehandingsEvent) => {
-    window.eventList.forEach((item) => {
-      if (isBeforehandingsEvent) {
-        item.id === eventId && clearTimeout(item.beforehandingEvent);
-      } else {
-        item.id === eventId && clearTimeout(item.action) || clearTimeout(item.beforehandingEvent) || clearInterval(item.action);
-      }
-    });
+    const findedEvent = window.eventList.find((item) => (item.id === eventId && item.name === eventName));
+    if (isBeforehandingsEvent) {
+      clearTimeout(findedEvent.beforehandingEvent);
+    } else {
+      clearTimeout(findedEvent.action) || clearTimeout(findedEvent.beforehandingEvent) || clearInterval(findedEvent.action);
+    }
     window.eventList = window.eventList.filter((item) => (item.name !== eventName && item.id !== eventId));
   };
 
@@ -47,26 +46,18 @@
    * @param {string} newEventName
    * @returns {Array}
    */
-  const renameEvent = (id, eventName, newEventName) => {
-    window.eventList.forEach((item) => {
-      if (item.id === id && item.name === eventName) {
-        item.name = newEventName;
-      }
-    });
+  const renameEvent = (eventId, eventName, newEventName) => {
+    const findedEvent = window.eventList.find((item) => (item.id === eventId && item.name === eventName));
+    findedEvent.name = newEventName;
   };
-
   /**
    * @param {number} eventId
    * @param {string} eventName
    * @param {Date} newEventTime
    */
   const changeEventDate = (eventId, eventName, newEventTime) => {
-    let callback;
-    window.eventList.forEach((item) => {
-      if (item.id === eventId) {
-        callback = item.function;
-      }
-    });
+    const findedEvent = window.eventList.find((item) => (item.id === eventId && item.name === eventName));
+    const callback = findedEvent.function;
     deleteEvent(eventId, eventName);
     setNewEvent(eventName, newEventTime, callback);
   };
@@ -121,6 +112,7 @@
   };
 
   window.modules = {
+    ...window.modules,
     setNewEvent,
     deleteEvent,
     renameEvent,
